@@ -1,0 +1,15 @@
+<main>
+	<h1>Hola a todos los tripulantes</h1>
+	{% if usuarios %}
+		<h2>Existen usuarios</h2>
+		<ul>
+			
+		
+			{% for usuario in usuarios%}
+				<li> {{ usuario.nombre }} - {{ usuario.edad }} </li>
+			{% endfor %}
+		
+		</ul>
+	{% endif %}
+
+</main>
