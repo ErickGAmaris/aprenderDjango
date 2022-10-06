@@ -17,24 +17,15 @@ def todosLosUsuarios( request ):
 		})
 
 def registrarUsuario( request ):
-
 	try:
-
 		nombre = request.POST['nombre']
-		contrasenia = request.POST['nombre']
-		edad = request.POST['nombre']
-		dia_registro = timezone.now()
+		contrasenia = request.POST['contrasenia']
+		edad = request.POST['edad']
 	except:
-		return HttpResponse("Error")
+		return HttpResponse('Error')
 	else:
-		nuevoUsuario = usuarios( 
-			nombre=nombre, 
-			edad=edad,
-			dia_registro=dia_registro,
-			contrasenia=contrasenia)
-		nuevoUsuario.save()
-		return 	HttpResponseRedirect( reverse( "pagina:index" ) )	
-
+		usuarios(nombre=nombre, edad=edad, contrasenia=contrasenia, dia_registro=timezone.now()).save()
+		return HttpResponseRedirect( reverse( 'pagina:index' ) )
 
 def vistaRegistroUsuario( request ):
 	return render( request, 'pagina/registrarse.html')
