@@ -1,19 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import usuarios
+from .models import Usuario
 from django.utils import timezone
 from django.urls import reverse
 
 def index( request ):
-	_usuarios = usuarios.objects.all()
+	usuarios = Usuario.objects.all()
 
 	return render( request, 'pagina/index.html')
 
 def todosLosUsuarios( request ):
-	_usuarios = usuarios.objects.all()
+	usuarios = Usuario.objects.all()
 
 	return render( request, 'pagina/todosLosUsuarios.html',{
-			'usuarios': _usuarios
+			'usuarios': usuarios
 		})
 
 def registrarUsuario( request ):
@@ -24,7 +24,7 @@ def registrarUsuario( request ):
 	except:
 		return HttpResponse('Error')
 	else:
-		usuarios(nombre=nombre, edad=edad, contrasenia=contrasenia, dia_registro=timezone.now()).save()
+		Usuario(nombre=nombre, edad=edad, contrasenia=contrasenia, dia_registro=timezone.now()).save()
 		return HttpResponseRedirect( reverse( 'pagina:index' ) )
 
 def vistaRegistroUsuario( request ):

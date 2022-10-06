@@ -5,7 +5,7 @@ from django.db import models
 
 #Relacion 1 a muchos
 
-class usuarios( models.Model ):
+class Usuario( models.Model ):
 	#id primary key
 
 	#nombre varchar
@@ -25,7 +25,7 @@ class usuarios( models.Model ):
 		return "Usuario: " + self.nombre
 
 
-class peliculas( models.Model ):
-	user = models.ForeignKey( usuarios, on_delete=models.CASCADE )
+class Tarea( models.Model ):
+	user = models.ForeignKey( Usuario, on_delete=models.CASCADE )
 	nombre = models.CharField( max_length = 60)
 	anios = models.DateTimeField("Anio de lanzamiento")
