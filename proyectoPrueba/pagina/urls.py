@@ -8,5 +8,6 @@ urlpatterns = [
 	#localhost:8000/pagina/peliculas
 	path("todosLosUsuarios", views.todosLosUsuarios, name="todosLosUsuarios"),
 	path("registrarse", views.vistaRegistroUsuario, name="registrarse"),
-	path('registrarUsuario', views.registrarUsuario, name="registrarUsuario")
+	path('registrarUsuario', views.registrarUsuario, name="registrarUsuario"),
+	path('login/<int:usuario_id>', views.login, name='login')
 ]
