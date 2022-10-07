@@ -1,40 +1,51 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import usuarios
+from .models import Usuario
 from django.utils import timezone
 from django.urls import reverse
 
 def index( request ):
-	_usuarios = usuarios.objects.all()
-
+	usuarios = Usuario.objects.all()
 	return render( request, 'pagina/index.html')
 
 def todosLosUsuarios( request ):
-	_usuarios = usuarios.objects.all()
+	usuarios = Usuario.objects.all()
 
 	return render( request, 'pagina/todosLosUsuarios.html',{
-			'usuarios': _usuarios
+			'usuarios': usuarios
 		})
 
 def registrarUsuario( request ):
-
 	try:
-
 		nombre = request.POST['nombre']
-		contrasenia = request.POST['nombre']
-		edad = request.POST['nombre']
+		contrasenia = request.POST['contrasenia']
 		dia_registro = timezone.now()
 	except:
 		return HttpResponse("Error")
 	else:
-		nuevoUsuario = usuarios( 
-			nombre=nombre, 
-			edad=edad,
-			dia_registro=dia_registro,
-			contrasenia=contrasenia)
-		nuevoUsuario.save()
-		return 	HttpResponseRedirect( reverse( "pagina:index" ) )	
-
+		Usuario( nombre=nombre, contrasenia=contrasenia, dia_registro=dia_registro  ).save()
+		return 	HttpResponseRedirect( reverse( "pagina:resultadoRegistro" ) )
 
 def vistaRegistroUsuario( request ):
 	return render( request, 'pagina/registrarse.html')
+
+def resultadoRegistro( request ):
+	return render( request, 'pagina/resultadoDelRegistro.html')
+
+def validacionExistenteUsuario( request ):
+	try:
+		nombre = request.POST['nombreUsuario']
+		contrasenia = request.POST['contraseniaUsuario']
+		usuarioValidar = Usuario.objects.get(nombre=nombre)
+
+	except:
+		return HttpResponse("Error")
+	else:
+		if( contrasenia == usuarioValidar.contrasenia ):
+			return HttpResponseRedirect( reverse( 'pagina:gestionTareas', args=(usuarioValidar.id) ) ) 
+
+
+
+def gestionTareas( request ):
+	return HttpResponse("""Ingreso Exitoso""")
+
