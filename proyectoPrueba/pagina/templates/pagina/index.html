@@ -1,6 +1,10 @@
 
 <main>
 	<section>
+		{% if error %}
+			<h2 style="color: red">{{error}}</h2>
+		{% endif %}
+
 		<form action=" {% url 'pagina:validacionExistenteUsuario' %} " method="post">
 			{% csrf_token %}
 			<input type="text" name="nombreUsuario" required>

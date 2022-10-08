@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import Usuario
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth import login, logout
 
 def index( request ):
 	usuarios = Usuario.objects.all()
@@ -41,11 +42,17 @@ def validacionExistenteUsuario( request ):
 	except:
 		return HttpResponse("Error")
 	else:
+
+		
 		if( contrasenia == usuarioValidar.contrasenia ):
-			return HttpResponseRedirect( reverse( 'pagina:gestionTareas', args=(usuarioValidar.id) ) ) 
+			login( request, usuarioValidar)
+			return HttpResponse("""Ingreso Exitoso""")
+				# return HttpResponseRedirect( reverse( 'pagina:gestionTareas', args=(usuarioValidar.id) ) ) 
+			
+		else:	
+			return render( request, 'pagina/index.html', {
+					'error': 'Usuario no existente'
+				})
 
 
-
-def gestionTareas( request ):
-	return HttpResponse("""Ingreso Exitoso""")
 
