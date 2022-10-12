@@ -38,14 +38,22 @@ def validacionExistenteUsuario( request ):
 		contrasenia = request.POST['contraseniaUsuario']
 		usuarioValidar = Usuario.objects.get(nombre=nombre)
 
-	except:
-		return HttpResponse("Error")
+	except :
+		return render( request, 'pagina/index.html', {
+			'error': 'Usuario no encontrado'
+			})
 	else:
 		if( contrasenia == usuarioValidar.contrasenia ):
-			return HttpResponseRedirect( reverse( 'pagina:gestionTareas', args=(usuarioValidar.id) ) ) 
+			return HttpResponseRedirect( reverse( 'gestionTareas:gestionTareas',
+										  args=(usuarioValidar.id,)  ) )
+		else:
+			return render( request, 'pagina/index.html', {
+					'error': 'Usuario o contrasenia no coincidentes'
+				})
+
+			# return HttpResponseRedirect( reverse( 'pagina:gestionTareas', args=(usuarioValidar.id) ) ) 
 
 
 
-def gestionTareas( request ):
-	return HttpResponse("""Ingreso Exitoso""")
+
 

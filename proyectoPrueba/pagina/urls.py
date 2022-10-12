@@ -10,6 +10,5 @@ urlpatterns = [
 	path("registrarse", views.vistaRegistroUsuario, name="registrarse"),
 	path('registrarUsuario', views.registrarUsuario, name="registrarUsuario"),
 	path('resultado', views.resultadoRegistro, name="resultadoRegistro" ),
-	path('gestionTareas', views.gestionTareas, name="gestionTareas" ),
 	path('validacionExistenteUsuario', views.validacionExistenteUsuario, name="validacionExistenteUsuario")
 ]

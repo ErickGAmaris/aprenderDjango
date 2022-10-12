@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'pagina.apps.PaginaConfig',
+    'gestionTareas',
 
     'django.contrib.admin',
     'django.contrib.auth',

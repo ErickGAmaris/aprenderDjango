@@ -1,0 +1,28 @@
+{% load static %}
+<link rel="stylesheet"  href="{% static 'gestionTareas/style.css' %}">
+
+<header>
+	<h1>Hola {{usuario.nombre}}</h1>
+</header>
+<main>
+	<section>
+		<form action="" method="post">
+			{% csrf_token %}
+			<input type="text" name="nuevaTarea" placeholder="Ingresar nueva tarea" required>
+			<input type="submit" valor="Agregar tarea">
+		</form>
+	</section>
+	<section>
+		<ul>
+			{% for tarea in usuario.tarea_set.all %}
+				<li>
+
+					<h3>{{ tarea.nombreTarea}} </h3> 
+					<button>Completada</button>
+					<button>Eliminar</button> 
+				
+				</li>				
+			{% endfor %}
+		</ul>
+	</section>
+</main>
